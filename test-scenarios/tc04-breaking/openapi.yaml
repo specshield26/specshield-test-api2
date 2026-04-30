@@ -1,0 +1,103 @@
+openapi: "3.0.0"
+
+info:
+  title: SpecShield Test API
+  description: Sample User Management API for testing SpecShield GitHub Integration
+  version: "2.0.0"
+  contact:
+    name: SpecShield
+    url: https://specshield.io
+
+servers:
+  - url: http://localhost:8080
+    description: Local development
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      operationId: listUsers
+      tags: [Users]
+      responses:
+        "200":
+          description: List of users returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: Create a new user
+      operationId: createUser
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid request body
+
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      operationId: getUserById
+      tags: [Users]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique user ID
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
+
+    # ── DELETE /users/{id} REMOVED (breaking: endpoint removed) ────────────
+
+components:
+  schemas:
+    User:
+      type: object
+      # ── 'email' removed from required list (breaking change) ───────────────
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Alice Smith"
+        # ── 'email' field removed entirely (breaking: field removed) ─────────
+        createdAt:
+          type: string
+          format: date-time
+
+    CreateUserRequest:
+      type: object
+      required:
+        - name
+      # ── 'email' removed from required in request body (breaking) ───────────
+      properties:
+        name:
+          type: string
+          example: "Alice Smith"
