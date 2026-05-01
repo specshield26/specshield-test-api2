@@ -1,4 +1,4 @@
-# SpecShield Test API
+# SpecShield Test API : 
 
 A minimal Spring Boot REST API used to test the **SpecShield GitHub Integration** end-to-end.
 
