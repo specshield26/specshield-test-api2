@@ -21,7 +21,7 @@ A minimal Spring Boot REST API used to test the **SpecShield GitHub Integration*
 
 ---
 
-## Quick Start
+## Quick Start Modified
 
 ### 1. Push this project to GitHub
 
